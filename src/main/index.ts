@@ -1,8 +1,9 @@
-import { app, nativeImage, BrowserWindow, shell } from 'electron'
+import { app, nativeImage, BrowserWindow, shell, ipcMain } from 'electron'
 import { electronApp, is } from '@electron-toolkit/utils'
 import { join } from 'path'
 import vars from '../common/var'
 import { initTray } from './tray/tray'
+import { EVENT_CLOSE_WIN, EVENT_FULL_SCREEN_WIN, EVENT_MINUS_WIN } from '../common/events'
 
 const icon = nativeImage.createFromPath('resources/icon.png')
 let mainWindow: BrowserWindow
@@ -12,10 +13,12 @@ function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    transparent: true,
+    frame: false,
     show: false,
-    autoHideMenuBar: true,
-    titleBarStyle: 'hidden',
-    titleBarOverlay: true,
+    // autoHideMenuBar: true,
+    // titleBarStyle: 'hidden',
+    // titleBarOverlay: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
@@ -54,3 +57,9 @@ app.whenReady().then(() => {
   // init tray
   initTray(mainWindow)
 })
+
+ipcMain.on(EVENT_CLOSE_WIN, () => mainWindow.close())
+ipcMain.on(EVENT_FULL_SCREEN_WIN, () =>
+  mainWindow.isMaximized() ? mainWindow.unmaximize() : mainWindow.maximize()
+)
+ipcMain.on(EVENT_MINUS_WIN, () => mainWindow.minimize())
