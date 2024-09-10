@@ -1,5 +1,10 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { EVENT_OPEN_PAGE, EVENT_MINUS_WIN, EVENT_FULL_SCREEN_WIN, EVENT_CLOSE_WIN } from '../common/events'
+import {
+  EVENT_OPEN_PAGE,
+  EVENT_MINUS_WIN,
+  EVENT_FULL_SCREEN_WIN,
+  EVENT_CLOSE_WIN
+} from '../common/events'
 
 // Custom APIs for renderer
 const api = {
