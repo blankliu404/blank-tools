@@ -6,7 +6,7 @@ const EVENT_FULL_SCREEN_WIN: string = 'full-screen-win'
 const EVENT_CLOSE_WIN: string = 'close-win'
 
 const openPage = (data: { window: BrowserWindow; page: string }) => {
-  console.log(data.page)
+  // console.log(data.page)
 
   data.window.show()
   data.window.webContents.send(EVENT_OPEN_PAGE, data.page)

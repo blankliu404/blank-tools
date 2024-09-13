@@ -3,28 +3,21 @@
     <com-common-close />
     <el-card class="custom-card">
       <template #header>
-        <div class="drag">
+        <div class="custom-card-header drag">
           <span>设置</span>
         </div>
       </template>
-      <el-scrollbar class="custom-card-body"></el-scrollbar>
+      <el-scrollbar class="custom-card-body">
+        <el-tabs tab-position="left" class="custom-tab">
+          <el-tab-pane label="系统"><system-config /></el-tab-pane>
+          <el-tab-pane label="编解码">Config</el-tab-pane>
+        </el-tabs>
+      </el-scrollbar>
     </el-card>
   </el-container>
 </template>
 
 <script lang="ts" setup>
 import ComCommonClose from '../components/ComCommonClose.vue'
+import SystemConfig from '../components/SystemConfig.vue'
 </script>
-
-<style lang="less">
-.custom {
-  &-card {
-    width: 100%;
-    border-radius: 8px;
-
-    &-body {
-      height: calc(100vh - 100px);
-    }
-  }
-}
-</style>

@@ -4,6 +4,7 @@ import { join } from 'path'
 import vars from '../common/var'
 import { initTray } from './tray/tray'
 import { EVENT_CLOSE_WIN, EVENT_FULL_SCREEN_WIN, EVENT_MINUS_WIN } from '../common/events'
+import { closeDb, getSystemConfig, initDb } from '../common/sqlite-util'
 
 const icon = nativeImage.createFromPath('resources/icon.png')
 let mainWindow: BrowserWindow
@@ -44,6 +45,8 @@ function createWindow(): void {
     if (!vars.mainWindowQuit) {
       e.preventDefault()
       mainWindow.hide()
+    } else {
+      closeDb()
     }
   })
 }
@@ -52,10 +55,12 @@ app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('tools.blank')
 
-  createWindow()
+  initDb(() => {
+    createWindow()
 
-  // init tray
-  initTray(mainWindow)
+    // init tray
+    initTray(mainWindow)
+  })
 })
 
 ipcMain.on(EVENT_CLOSE_WIN, () => mainWindow.close())

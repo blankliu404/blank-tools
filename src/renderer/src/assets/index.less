@@ -4,10 +4,47 @@ body {
   height: 100vh;
 }
 
+.el-card__header, .el-card__body {
+  padding: 0 !important;
+}
+
 .drag {
   -webkit-app-region: drag;
 }
 
 .no-drag {
   -webkit-app-region: no-drag;
+}
+
+.custom {
+  &-card {
+    width: 100%;
+    border-radius: 8px;
+
+    &-header {
+      width: calc(100% - 194px);
+      height: 50px;
+      line-height: 50px;
+      padding: 0 20px;
+      font-size: 18px;
+    }
+
+    &-body {
+      height: calc(100vh - 100px);
+    }
+  }
+  &-tab {
+    height: calc(100vh - 100px);
+    font-size: 18px;
+  }
+  &-config {
+    margin-left: 100px;
+  }
+  &-win {
+    &-button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
 }
